@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { Check } from "lucide-react";
 
 const streakDays = [
-  { day: "Mon", completed: true },
-  { day: "Tue", completed: true },
-  { day: "Wed", completed: true },
-  { day: "Thu", completed: true },
-  { day: "Fri", completed: true },
-  { day: "Sat", completed: false },
-  { day: "Sun", completed: false },
+  { day: "Mon", task: "Set up portfolio" },
+  { day: "Tue", task: "Write intro copy" },
+  { day: "Wed", task: "Add 3 projects" },
+  { day: "Thu", task: "Share with 5 people" },
+  { day: "Fri", task: "Apply to 2 gigs" },
+  { day: "Sat", task: null },
+  { day: "Sun", task: null },
 ];
 
 const EmotionalHookSection = () => {
@@ -23,7 +23,7 @@ const EmotionalHookSection = () => {
         }
         return prev + 1;
       });
-    }, 300);
+    }, 400);
 
     return () => clearInterval(timer);
   }, []);
@@ -33,25 +33,24 @@ const EmotionalHookSection = () => {
       <div className="max-w-4xl mx-auto text-center">
         {/* Section Header */}
         <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
-          Your to-do list stops{" "}
-          <span className="text-gradient-primary">controlling you.</span>
+          5 days. <span className="text-gradient-primary">5 tasks done.</span>
         </h2>
         <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Watch yourself achieve more than you thought possible. One task, one win, one unstoppable streak.
+          This is what a week of actual progress looks like.
         </p>
 
         {/* Streak Visualization */}
-        <div className="max-w-lg mx-auto mb-12">
+        <div className="max-w-2xl mx-auto mb-12">
           <div className="bg-card border border-border rounded-xl p-8">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-foreground font-semibold">Your Week</h3>
               <div className="flex items-center gap-2">
-                <span className="text-2xl font-bold text-primary">5</span>
-                <span className="text-muted-foreground text-sm">day streak</span>
+                <span className="text-2xl font-bold text-primary">{visibleDays}</span>
+                <span className="text-muted-foreground text-sm">tasks shipped</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-7 gap-2">
+            <div className="grid grid-cols-7 gap-2 mb-6">
               {streakDays.map((day, index) => (
                 <div key={day.day} className="text-center">
                   <p className="text-muted-foreground text-xs mb-2">{day.day}</p>
@@ -71,25 +70,26 @@ const EmotionalHookSection = () => {
               ))}
             </div>
 
-            {/* Progress bar */}
-            <div className="mt-6">
-              <div className="flex justify-between text-sm mb-2">
-                <span className="text-muted-foreground">Weekly progress</span>
-                <span className="text-primary font-medium">5/7 tasks</span>
-              </div>
-              <div className="h-2 bg-muted rounded-full overflow-hidden">
+            {/* What got done */}
+            <div className="text-left space-y-2 pt-4 border-t border-border">
+              {streakDays.slice(0, visibleDays).map((day, index) => (
                 <div 
-                  className="h-full bg-gradient-to-r from-primary to-emerald-400 rounded-full transition-all duration-1000"
-                  style={{ width: '71%' }}
-                />
-              </div>
+                  key={day.day} 
+                  className="flex items-center gap-3 text-sm animate-slide-up"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <Check className="w-4 h-4 text-primary flex-shrink-0" />
+                  <span className="text-muted-foreground">{day.day}:</span>
+                  <span className="text-foreground">{day.task}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Quote */}
-        <p className="text-muted-foreground italic max-w-xl mx-auto">
-          "Stop being paralyzed by choice. Let AI handle the thinking. You just do."
+        {/* Reframe */}
+        <p className="text-muted-foreground max-w-xl mx-auto text-lg">
+          No magic. No hacks. Just <span className="text-primary font-medium">one task per day</span> that you actually finish.
         </p>
       </div>
     </section>
