@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -20,37 +20,48 @@ const HeroSection = () => {
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         {/* Headline */}
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 animate-slide-up">
-          Decisions pile up.{" "}
-          <span className="text-gradient-primary">You fall behind.</span>
+          Stop overthinking.{" "}
+          <span className="text-gradient-primary">Start finishing.</span>
         </h1>
 
-        {/* Subheadline */}
+        {/* Subheadline - concrete explanation */}
         <p className="text-xl md:text-2xl text-muted-foreground mb-12 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-          One task. Done. Momentum unlocked.
+          DOLT gives you one high-impact task each day so you actually make progress.
         </p>
 
-        {/* Task Preview Card */}
+        {/* Process Steps - the "what actually happens" */}
         <div 
-          className="max-w-md mx-auto mb-12 animate-slide-up"
+          className="max-w-lg mx-auto mb-12 animate-slide-up"
           style={{ animationDelay: '0.2s' }}
         >
-          <div className="relative bg-card border border-border rounded-xl p-6 glow-primary-subtle animate-glow">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center animate-float">
-                <Check className="w-6 h-6 text-primary animate-check" />
+          <div className="bg-card/50 border border-border rounded-xl p-6 backdrop-blur-sm">
+            <div className="flex flex-col gap-4 text-left">
+              <div className="flex items-center gap-4">
+                <span className="w-8 h-8 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary font-bold text-sm">1</span>
+                <p className="text-foreground">You tell us your goal.</p>
               </div>
-              <div className="text-left">
-                <p className="text-foreground font-medium">Ship landing page MVP</p>
-                <p className="text-muted-foreground text-sm">Your one focus. Nothing else.</p>
+              <div className="flex items-center gap-4">
+                <span className="w-8 h-8 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary font-bold text-sm">2</span>
+                <p className="text-foreground">We choose the next step.</p>
+              </div>
+              <div className="flex items-center gap-4">
+                <span className="w-8 h-8 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary font-bold text-sm">3</span>
+                <p className="text-foreground">You do it. Momentum builds.</p>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Analogy - mental model */}
+        <p className="text-muted-foreground mb-8 animate-slide-up" style={{ animationDelay: '0.25s' }}>
+          Think <span className="text-primary font-medium">Duolingo</span>, but for real-life progress.
+        </p>
+
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style={{ animationDelay: '0.3s' }}>
-          <Button variant="hero" size="lg">
-            Join Early Access — $15/month
+          <Button variant="hero" size="lg" className="group">
+            Start your first task — $15/month
+            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
           </Button>
           <p className="text-accent text-sm font-medium">
             Only 100 spots available

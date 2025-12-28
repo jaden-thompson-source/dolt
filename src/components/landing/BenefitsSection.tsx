@@ -1,64 +1,80 @@
-import { Zap, Target, TrendingUp } from "lucide-react";
-
-const benefits = [
-  {
-    icon: Zap,
-    title: "Tasks vanish.",
-    highlight: "Wins appear instantly.",
-    description: "Complete one thing. See immediate progress. Feel the rush.",
-  },
-  {
-    icon: Target,
-    title: "Next move chosen.",
-    highlight: "Momentum unstoppable.",
-    description: "AI picks your priority. You just execute. No decisions.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Action replaces overthinking.",
-    highlight: "Confidence grows.",
-    description: "Stop planning endlessly. Start shipping daily. Watch yourself win.",
-  },
-];
+import { ArrowRight } from "lucide-react";
 
 const BenefitsSection = () => {
   return (
-    <section className="relative py-24 px-6 bg-background">
+    <section className="relative py-24 px-6 bg-secondary/30">
       <div className="max-w-5xl mx-auto">
-        {/* Section Header */}
+        {/* Before/After Section */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Why <span className="text-gradient-primary">DOLT</span> Works
+            The difference is <span className="text-gradient-primary">brutal</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Minimalist. Momentum-first. One task at a time, every day.
-          </p>
         </div>
 
-        {/* Benefits Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {benefits.map((benefit, index) => (
-            <div
-              key={index}
-              className="group relative bg-card border border-border rounded-xl p-8 transition-all duration-300 hover:border-primary/50 hover:glow-primary-subtle"
-            >
-              {/* Icon */}
-              <div className="w-14 h-14 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-                <benefit.icon className="w-7 h-7 text-primary" />
-              </div>
+        <div className="grid md:grid-cols-2 gap-8 mb-20">
+          {/* Before */}
+          <div className="bg-card border border-border rounded-xl p-8">
+            <p className="text-accent font-semibold mb-4 uppercase text-sm tracking-wider">Without DOLT</p>
+            <p className="text-foreground text-lg leading-relaxed">
+              You wake up, stare at <span className="text-accent font-medium">27 unfinished ideas</span>, open 4 apps, close 3, 
+              scroll Twitter "for inspiration", and by noon you've done nothing meaningful.
+            </p>
+            <p className="text-muted-foreground mt-4 text-sm">Sound familiar?</p>
+          </div>
 
-              {/* Content */}
-              <h3 className="text-xl font-semibold text-foreground mb-1">
-                {benefit.title}
-              </h3>
-              <p className="text-primary font-medium mb-3">
-                {benefit.highlight}
-              </p>
-              <p className="text-muted-foreground text-sm">
-                {benefit.description}
+          {/* After */}
+          <div className="bg-card border border-primary/30 rounded-xl p-8 glow-primary-subtle">
+            <p className="text-primary font-semibold mb-4 uppercase text-sm tracking-wider">With DOLT</p>
+            <p className="text-foreground text-lg leading-relaxed">
+              You wake up to <span className="text-primary font-medium">one clear action</span>. You do it. 
+              You're done before lunch. Tomorrow, another step. In a week, you've shipped.
+            </p>
+            <p className="text-muted-foreground mt-4 text-sm">That's it. That's the whole system.</p>
+          </div>
+        </div>
+
+        {/* Concrete Use Case */}
+        <div className="max-w-2xl mx-auto">
+          <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
+            Here's what Day 1 looks like
+          </h3>
+          
+          <div className="bg-card border border-border rounded-xl overflow-hidden">
+            {/* Goal Input */}
+            <div className="p-6 border-b border-border">
+              <p className="text-muted-foreground text-sm mb-2">Your goal:</p>
+              <p className="text-foreground font-medium text-lg">"Start freelancing on the side"</p>
+            </div>
+            
+            {/* Task Sequence */}
+            <div className="p-6 space-y-4">
+              <p className="text-muted-foreground text-sm mb-4">DOLT generates your path:</p>
+              
+              <div className="flex items-center gap-4 p-4 bg-primary/10 border border-primary/30 rounded-lg">
+                <span className="text-primary font-bold">Day 1</span>
+                <ArrowRight className="w-4 h-4 text-primary" />
+                <p className="text-foreground">"Create a one-page portfolio"</p>
+              </div>
+              
+              <div className="flex items-center gap-4 p-4 bg-muted/50 rounded-lg opacity-60">
+                <span className="text-muted-foreground font-bold">Day 2</span>
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <p className="text-muted-foreground">"Send it to 3 people"</p>
+              </div>
+              
+              <div className="flex items-center gap-4 p-4 bg-muted/50 rounded-lg opacity-40">
+                <span className="text-muted-foreground font-bold">Day 3</span>
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <p className="text-muted-foreground">"Post in 2 relevant communities"</p>
+              </div>
+            </div>
+            
+            <div className="p-6 bg-muted/30 border-t border-border">
+              <p className="text-muted-foreground text-center text-sm">
+                No planning. No overwhelm. Just <span className="text-primary font-medium">one task</span> until it's done.
               </p>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
