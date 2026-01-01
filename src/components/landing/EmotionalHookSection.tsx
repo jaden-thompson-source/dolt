@@ -33,63 +33,54 @@ const EmotionalHookSection = () => {
       <div className="max-w-4xl mx-auto text-center">
         {/* Section Header */}
         <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
-          5 days. <span className="text-gradient-primary">5 tasks done.</span>
+          A Week of <span className="text-gradient-primary">Momentum</span>
         </h2>
-        <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
-          This is what a week of actual progress looks like.
+        <p className="text-xl text-muted-foreground mb-4 max-w-2xl mx-auto">
+          Your Week: <span className="text-primary font-semibold">{visibleDays} tasks shipped</span>
         </p>
 
-        {/* Streak Visualization */}
+        {/* Week Table */}
         <div className="max-w-2xl mx-auto mb-12">
-          <div className="bg-card border border-border rounded-xl p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-foreground font-semibold">Your Week</h3>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl font-bold text-primary">{visibleDays}</span>
-                <span className="text-muted-foreground text-sm">tasks shipped</span>
+          <div className="bg-card border border-border rounded-xl overflow-hidden">
+            {/* Table Header */}
+            <div className="grid grid-cols-2 border-b border-border bg-muted/30">
+              <div className="p-4 text-left">
+                <span className="text-muted-foreground font-medium text-sm">Day</span>
+              </div>
+              <div className="p-4 text-left">
+                <span className="text-muted-foreground font-medium text-sm">Task</span>
               </div>
             </div>
-
-            <div className="grid grid-cols-7 gap-2 mb-6">
-              {streakDays.map((day, index) => (
-                <div key={day.day} className="text-center">
-                  <p className="text-muted-foreground text-xs mb-2">{day.day}</p>
-                  <div
-                    className={`w-10 h-10 mx-auto rounded-lg flex items-center justify-center transition-all duration-300 ${
-                      index < visibleDays
-                        ? "bg-primary/20 border-2 border-primary"
-                        : "bg-muted border-2 border-transparent"
-                    }`}
-                    style={{ transitionDelay: `${index * 100}ms` }}
-                  >
-                    {index < visibleDays && (
-                      <Check className="w-5 h-5 text-primary" />
-                    )}
-                  </div>
+            
+            {/* Table Rows */}
+            {streakDays.slice(0, 5).map((day, index) => (
+              <div 
+                key={day.day} 
+                className={`grid grid-cols-2 border-b border-border last:border-b-0 transition-all duration-300 ${
+                  index < visibleDays ? "bg-primary/5" : ""
+                }`}
+              >
+                <div className="p-4 text-left flex items-center gap-3">
+                  {index < visibleDays && (
+                    <Check className="w-4 h-4 text-primary flex-shrink-0" />
+                  )}
+                  <span className={`font-medium ${index < visibleDays ? "text-foreground" : "text-muted-foreground"}`}>
+                    {day.day}
+                  </span>
                 </div>
-              ))}
-            </div>
-
-            {/* What got done */}
-            <div className="text-left space-y-2 pt-4 border-t border-border">
-              {streakDays.slice(0, visibleDays).map((day, index) => (
-                <div 
-                  key={day.day} 
-                  className="flex items-center gap-3 text-sm animate-slide-up"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span className="text-muted-foreground">{day.day}:</span>
-                  <span className="text-foreground">{day.task}</span>
+                <div className="p-4 text-left">
+                  <span className={index < visibleDays ? "text-foreground" : "text-muted-foreground"}>
+                    {day.task}
+                  </span>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Reframe */}
         <p className="text-muted-foreground max-w-xl mx-auto text-lg">
-          No magic. No hacks. Just <span className="text-primary font-medium">one task per day</span> that you actually finish.
+          No hacks. No magic. Just <span className="text-primary font-medium">real progress every day</span>.
         </p>
       </div>
     </section>
