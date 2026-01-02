@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const faqs = [
   {
@@ -40,10 +41,12 @@ const FooterSection = () => {
           <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
             Start your first task — it only takes 2 minutes.
           </h3>
-          <Button variant="hero" size="lg" className="group mb-6">
-            Start Now
-            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          <Link to="/auth">
+            <Button variant="hero" size="lg" className="group mb-6">
+              Start Now
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
           <p className="text-muted-foreground">
             Stop spinning your wheels. Start moving forward. One task at a time.
           </p>

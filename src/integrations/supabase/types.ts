@@ -14,7 +14,90 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      goals: {
+        Row: {
+          category: string
+          created_at: string
+          goal_text: string
+          id: string
+          is_active: boolean
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          goal_text: string
+          id?: string
+          is_active?: boolean
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          goal_text?: string
+          id?: string
+          is_active?: boolean
+          user_id?: string
+        }
+        Relationships: []
+      }
+      tasks: {
+        Row: {
+          category: string
+          created_at: string
+          day_order: number
+          description: string | null
+          id: string
+          title: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          day_order: number
+          description?: string | null
+          id?: string
+          title: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          day_order?: number
+          description?: string | null
+          id?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      user_progress: {
+        Row: {
+          created_at: string
+          current_task_index: number
+          id: string
+          last_task_completed_at: string | null
+          streak: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          current_task_index?: number
+          id?: string
+          last_task_completed_at?: string | null
+          streak?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          current_task_index?: number
+          id?: string
+          last_task_completed_at?: string | null
+          streak?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
