@@ -4,15 +4,15 @@ import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { Mail, ArrowRight, Loader2 } from 'lucide-react';
+import { Mail, Lock, ArrowRight, Loader2 } from 'lucide-react';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [emailSent, setEmailSent] = useState(false);
-  const { user, loading } = useAuth();
+  const [isSignUp, setIsSignUp] = useState(false);
+  const { user, loading, signUp, signIn } = useAuth();
   const navigate = useNavigate();
-  const { signInWithMagicLink } = useAuth();
 
   useEffect(() => {
     if (!loading && user) {
@@ -23,24 +23,39 @@ const Auth = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email.trim()) {
-      toast.error('Please enter your email');
+    if (!email.trim() || !password.trim()) {
+      toast.error('Please enter email and password');
+      return;
+    }
+
+    if (password.length < 6) {
+      toast.error('Password must be at least 6 characters');
       return;
     }
 
     setIsLoading(true);
 
-    const { error } = await signInWithMagicLink(email);
+    const { error } = isSignUp 
+      ? await signUp(email, password)
+      : await signIn(email, password);
 
     if (error) {
-      toast.error(error.message);
+      if (error.message.includes('User already registered')) {
+        toast.error('Account already exists. Try signing in.');
+      } else if (error.message.includes('Invalid login credentials')) {
+        toast.error('Invalid email or password');
+      } else {
+        toast.error(error.message);
+      }
       setIsLoading(false);
       return;
     }
 
-    setEmailSent(true);
+    if (isSignUp) {
+      toast.success('Account created! Redirecting...');
+    }
+    
     setIsLoading(false);
-    toast.success('Check your email for the magic link!');
   };
 
   if (loading) {
@@ -60,67 +75,69 @@ const Auth = () => {
           <p className="text-muted-foreground mt-2">One task. One day. Real progress.</p>
         </div>
 
-        {!emailSent ? (
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium text-foreground">
-                Email
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10 h-12 bg-card border-border"
-                  autoFocus
-                />
-              </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <label htmlFor="email" className="text-sm font-medium text-foreground">
+              Email
+            </label>
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="pl-10 h-12 bg-card border-border"
+                autoFocus
+              />
             </div>
-
-            <Button
-              type="submit"
-              variant="hero"
-              size="lg"
-              className="w-full"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <Loader2 className="h-5 w-5 animate-spin" />
-              ) : (
-                <>
-                  Get Magic Link
-                  <ArrowRight className="h-5 w-5" />
-                </>
-              )}
-            </Button>
-
-            <p className="text-center text-sm text-muted-foreground">
-              No password needed. We'll send you a link to sign in instantly.
-            </p>
-          </form>
-        ) : (
-          <div className="text-center space-y-6 p-8 bg-card rounded-xl border border-border">
-            <div className="w-16 h-16 mx-auto bg-primary/20 rounded-full flex items-center justify-center">
-              <Mail className="h-8 w-8 text-primary" />
-            </div>
-            <div className="space-y-2">
-              <h2 className="text-xl font-semibold text-foreground">Check your inbox</h2>
-              <p className="text-muted-foreground">
-                We sent a magic link to <span className="text-foreground font-medium">{email}</span>
-              </p>
-            </div>
-            <Button
-              variant="outline"
-              onClick={() => setEmailSent(false)}
-              className="mt-4"
-            >
-              Use a different email
-            </Button>
           </div>
-        )}
+
+          <div className="space-y-2">
+            <label htmlFor="password" className="text-sm font-medium text-foreground">
+              Password
+            </label>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Input
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="pl-10 h-12 bg-card border-border"
+              />
+            </div>
+          </div>
+
+          <Button
+            type="submit"
+            variant="hero"
+            size="lg"
+            className="w-full"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <>
+                {isSignUp ? 'Create Account' : 'Sign In'}
+                <ArrowRight className="h-5 w-5" />
+              </>
+            )}
+          </Button>
+        </form>
+
+        <div className="text-center">
+          <button
+            type="button"
+            onClick={() => setIsSignUp(!isSignUp)}
+            className="text-sm text-muted-foreground hover:text-primary transition-colors"
+          >
+            {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
+          </button>
+        </div>
       </div>
     </div>
   );
