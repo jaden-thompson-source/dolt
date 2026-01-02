@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -31,10 +32,12 @@ const HeroSection = () => {
 
         {/* CTA Button */}
         <div className="mb-12 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-          <Button variant="hero" size="lg" className="group">
-            Start your first task
-            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          <Link to="/auth">
+            <Button variant="hero" size="lg" className="group">
+              Start your first task
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
         </div>
 
         {/* Analogy - mental model */}
